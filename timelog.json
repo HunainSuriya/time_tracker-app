@@ -1,0 +1,78 @@
+{
+  "_comment": "Save this as: time_tracker/doctype/time_log/time_log.json",
+  "_lesson": "DocType JSON defines the database table structure and form layout",
+
+  "name": "Time Log",
+  "doctype": "DocType",
+  "module": "Time Tracker",
+  "naming_rule": "Expression",
+  "autoname": "TL-.YYYY.-.#####",
+
+  "_autoname_explained": "TL-2024-00001 format. .YYYY. = current year, .#####  = 5-digit sequence",
+
+  "fields": [
+    {
+      "fieldname": "project",
+      "fieldtype": "Link",
+      "label": "Project",
+      "options": "Project",
+      "reqd": 1,
+      "_note": "Link field = foreign key to Project DocType"
+    },
+    {
+      "fieldname": "logged_by",
+      "fieldtype": "Link",
+      "label": "Logged By",
+      "options": "User",
+      "default": "__user",
+      "_note": "__user = auto-fill with current logged-in user"
+    },
+    {
+      "fieldname": "log_date",
+      "fieldtype": "Date",
+      "label": "Date",
+      "default": "Today",
+      "reqd": 1
+    },
+    {
+      "fieldname": "hours",
+      "fieldtype": "Float",
+      "label": "Hours",
+      "reqd": 1,
+      "precision": "2"
+    },
+    {
+      "fieldname": "description",
+      "fieldtype": "Small Text",
+      "label": "Description"
+    },
+    {
+      "fieldname": "billing_amount",
+      "fieldtype": "Currency",
+      "label": "Billing Amount",
+      "read_only": 1,
+      "_note": "read_only=1 means users cannot edit this field directly"
+    }
+  ],
+
+  "permissions": [
+    {
+      "role": "Time Tracker User",
+      "read": 1,
+      "write": 1,
+      "create": 1,
+      "_note": "Users with this role can read, write, and create"
+    },
+    {
+      "role": "Time Tracker Manager",
+      "read": 1,
+      "write": 1,
+      "create": 1,
+      "delete": 1,
+      "submit": 1,
+      "cancel": 1,
+      "report": 1,
+      "_note": "Managers have full access including delete and reports"
+    }
+  ]
+}
